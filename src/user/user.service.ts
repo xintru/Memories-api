@@ -13,9 +13,13 @@ export class UserService {
   ) {}
 
   createUser(email: string, password: string, name: string) {
-    return this.userRepo
-      .create({ email, password, name, memories: [], comments: [] })
-      .save()
+    return this.userRepo.save({
+      email,
+      password,
+      name,
+      memories: [],
+      comments: [],
+    })
   }
 
   updateUser(user: User, updateUserDto: UpdateUserDto) {
