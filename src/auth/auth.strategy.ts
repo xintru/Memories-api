@@ -2,7 +2,7 @@ import { ExtractJwt, Strategy } from 'passport-jwt'
 import { PassportStrategy } from '@nestjs/passport'
 import { Injectable } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
-import { User } from './auth.model'
+import { User } from '../user/user.model'
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
@@ -13,8 +13,6 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
       secretOrKey: configService.get('JWT_SECRET'),
     })
   }
-
-  // todo fix 401
   async validate(user: User) {
     return user
   }

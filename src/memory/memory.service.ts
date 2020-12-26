@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
 import { Memory } from './memory.model'
-import { User } from '../auth/auth.model'
+import { User } from '../user/user.model'
 import { MemoryDto } from './dto/memory.dto'
 import { MemoriesPaginatedDto } from './dto/memories-paginated.dto'
 

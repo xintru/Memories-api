@@ -7,7 +7,7 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm'
-import { User } from '../auth/auth.model'
+import { User } from '../user/user.model'
 import { Memory } from '../memory/memory.model'
 
 @ObjectType()

@@ -8,7 +8,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm'
 import { Field, ObjectType } from '@nestjs/graphql'
-import { User } from '../auth/auth.model'
+import { User } from '../user/user.model'
 import { Comment } from '../comment/comment.model'
 
 @ObjectType()

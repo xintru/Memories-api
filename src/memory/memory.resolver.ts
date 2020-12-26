@@ -4,7 +4,7 @@ import { MemoryService } from './memory.service'
 import { GqlAuthGuard } from '../auth/auth.guard'
 import { UseGuards } from '@nestjs/common'
 import { CurrentUser } from '../shared/decorators/CurrentUser.decorator'
-import { User } from '../auth/auth.model'
+import { User } from '../user/user.model'
 import { MemoryDto } from './dto/memory.dto'
 import { MemoriesPaginatedDto } from './dto/memories-paginated.dto'
 

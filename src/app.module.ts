@@ -8,6 +8,7 @@ import { CommentModule } from './comment/comment.module'
 import { ConfigModule } from '@nestjs/config'
 import { MemoriesConfigService } from './config/config.service'
 import { MemoriesConfigModule } from './config/config.module'
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { MemoriesConfigModule } from './config/config.module'
     MailModule,
     CommentModule,
     ConfigModule,
+    UserModule,
   ],
 })
 export class AppModule {}

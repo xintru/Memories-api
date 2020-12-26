@@ -5,6 +5,8 @@
 - ```yarn or npm i```
 - You also need to have Docker installed. <br />
   If you have it, run ```docker-compose -f docker-compose.yml up```
+  
+#Important: I am not providing example for .env now. Until i do, you won't be able to start this app.
 
 ## Running the project
 

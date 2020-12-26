@@ -50,21 +50,3 @@ export class User extends BaseEntity {
   @OneToMany(() => Comment, (comment: Comment) => comment.user)
   comments: Comment[]
 }
-
-@ObjectType()
-export class TokenData {
-  @Field()
-  token: string
-
-  @Field()
-  expiresAt: number
-}
-
-@ObjectType()
-export class AuthReturnData {
-  @Field((type) => TokenData)
-  tokenData: TokenData
-
-  @Field((type) => User)
-  user: User
-}
