@@ -1,7 +1,13 @@
 import { Args, Mutation, Resolver } from '@nestjs/graphql'
 import { AuthService } from './auth.service'
 import { User } from '../user/user.model'
-import { HttpException, HttpStatus, UseGuards } from '@nestjs/common'
+import {
+  BadRequestException,
+  HttpException,
+  HttpStatus,
+  UnprocessableEntityException,
+  UseGuards,
+} from '@nestjs/common'
 import { CurrentUser } from '../shared/decorators/CurrentUser.decorator'
 import { ConfigService } from '@nestjs/config'
 import { LoginDto } from './dto/login.dto'
@@ -23,9 +29,8 @@ export class AuthResolver {
   async login(@Args() { email, password }: LoginDto) {
     const user = await this.userService.getUserByEmail(email)
     if (!user) {
-      return new HttpException(
+      throw new UnprocessableEntityException(
         'User with this email does not exist or password is incorrect',
-        HttpStatus.UNPROCESSABLE_ENTITY,
       )
     }
     const isPasswordValid = await this.authService.comparePasswords(
@@ -33,9 +38,8 @@ export class AuthResolver {
       user.password,
     )
     if (!isPasswordValid) {
-      return new HttpException(
+      throw new UnprocessableEntityException(
         'User with this email does not exist or password is incorrect',
-        HttpStatus.UNPROCESSABLE_ENTITY,
       )
     }
     const userWithoutPassword = { ...user }
@@ -53,18 +57,12 @@ export class AuthResolver {
   @Mutation(() => AuthReturnData)
   async signup(@Args() { password, confirmPassword, email }: SignUpDto) {
     if (password !== confirmPassword) {
-      return new HttpException(
-        'Passwords do not match',
-        HttpStatus.UNPROCESSABLE_ENTITY,
-      )
+      throw new UnprocessableEntityException('Passwords do not match')
     }
     const dbPassword = await this.authService.hashPassword(password)
     const existingUser = await this.userService.getUserByEmail(email)
     if (existingUser) {
-      return new HttpException(
-        'User with this email already exists',
-        HttpStatus.BAD_REQUEST,
-      )
+      throw new BadRequestException('User with this email already exists')
     }
     const name = email.split('@')[0]
     const user = await this.userService.createUser(email, dbPassword, name)
@@ -74,7 +72,7 @@ export class AuthResolver {
     return {
       tokenData: {
         token,
-        expiresAt: this.configService.get('JWT_EXPIRES_AT'),
+        expiresAt: +this.configService.get('JWT_EXPIRES_AT'),
       },
       user: userWithoutPassword,
     }
