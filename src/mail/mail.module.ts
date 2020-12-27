@@ -27,7 +27,7 @@ import { JwtModule } from '@nestjs/jwt'
       name: process.env.MAIL_QUEUE_NAME,
       useFactory: () => ({
         redis: {
-          host: process.env.SERVER_HOST,
+          host: process.env.REDIS_HOST,
           port: +process.env.REDIS_PORT,
         },
       }),

@@ -1,12 +1,32 @@
-version: '3'
+version: '3.7'
 
 services:
-  db:
+  api:
+    container_name: api
+    build:
+      context: .
+      target: development
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    ports:
+      - ${SERVER_PORT}:${SERVER_PORT}
+    command: npm run start:dev
+    env_file:
+      - .env.docker
+    networks:
+      - webnet
+    depends_on:
+      - redis
+      - postgres
+  postgres:
     container_name: memories_db
     image: postgres:12.4
     restart: always
+    networks:
+      - webnet
     env_file:
-      - .env
+      - .env.docker
     ports:
       - ${POSTGRES_PORT}:5432
     environment:
@@ -21,18 +41,25 @@ services:
       PGADMIN_DEFAULT_PASSWORD: secret
       PGADMIN_LISTEN_PORT: 80
     depends_on:
-      - db
+      - postgres
     links:
-      - db:pgsql-server
+      - postgres:pgsql-server
     env_file:
-      - .env
+      - .env.docker
     ports:
       - ${PG_ADMIN_PORT}:80
+    networks:
+      - webnet
   redis:
+    container_name: memories_redis
     image: bitnami/redis:latest
-
+    env_file:
+      - .env.docker
     ports:
       - ${REDIS_PORT}:6379
-
     environment:
       - ALLOW_EMPTY_PASSWORD=yes
+    networks:
+      - webnet
+networks:
+  webnet:

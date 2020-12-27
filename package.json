@@ -39,7 +39,6 @@
     "@nestjs/platform-express": "^7.5.1",
     "@nestjs/typeorm": "^7.1.4",
     "apollo-server-express": "^2.19.0",
-    "bcrypt": "^5.0.0",
     "bull": "^3.20.0",
     "class-validator": "^0.12.2",
     "cloudinary": "^1.23.0",
@@ -102,6 +101,8 @@
     ],
     "coverageDirectory": "../coverage",
     "testEnvironment": "node",
-    "setupFiles": ["../test/tests.env.ts"]
+    "setupFiles": [
+      "../test/tests.env.ts"
+    ]
   }
 }
