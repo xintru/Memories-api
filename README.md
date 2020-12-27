@@ -1,17 +1,6 @@
 # STILL WORK IN PROGRESS
 
-## Installation
-
-- ```yarn or npm i```
-- You also need to have Docker installed. <br />
-  If you have it, run ```docker-compose -f docker-compose.yml up```
-  
-#Important: I am not providing example for .env now. Until i do, you won't be able to start this app.
-
-## Running the project
-
-- ```yarn run start:dev``` starts the dev server
-
-## Migrations
-
-Head over to ./packages/server and run ```migration:run``` to apply migrations to db
+## Installation & Running
+- You need to have Docker installed. <br />
+- If you have it, run ```docker-compose -f docker-compose.yml up``` <br />
+- Voila!
