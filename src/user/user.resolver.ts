@@ -1,4 +1,11 @@
-import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
+import {
+  Args,
+  Mutation,
+  Parent,
+  Query,
+  ResolveField,
+  Resolver,
+} from '@nestjs/graphql'
 import { User } from './user.model'
 import { BadRequestException, UseGuards } from '@nestjs/common'
 import { GqlAuthGuard } from '../auth/auth.guard'
@@ -6,10 +13,15 @@ import { CurrentUser } from '../shared/decorators/CurrentUser.decorator'
 import { UserService } from './user.service'
 import { UpdateUserDto } from './dto/updateUser.dto'
 import { CurrentUserDto } from '../shared/decorators/CurrentUser.dto'
+import { Adventure } from '../adventure/adventure.model'
+import { AdventureService } from '../adventure/adventure.service'
 
 @Resolver(() => User)
 export class UserResolver {
-  constructor(private readonly userService: UserService) {}
+  constructor(
+    private readonly userService: UserService,
+    private readonly adventureService: AdventureService,
+  ) {}
 
   @Query(() => User)
   @UseGuards(GqlAuthGuard)
@@ -34,5 +46,10 @@ export class UserResolver {
     }
     const res = await this.userService.updateUser(userFromDb, updateUserDto)
     return res.affected > 0
+  }
+
+  @ResolveField(() => [Adventure])
+  async adventures(@Parent() user: User) {
+    return await this.adventureService.getAllUserAdventures(user.id)
   }
 }

@@ -12,6 +12,14 @@ export class AdventureService {
     private readonly adventureRepository: Repository<Adventure>,
   ) {}
 
+  getAllUserAdventures(userId: string) {
+    return this.adventureRepository
+      .createQueryBuilder()
+      .relation(User, 'adventures')
+      .of(userId)
+      .loadMany()
+  }
+
   getAdventureById(adventureId: string) {
     return this.adventureRepository.findOne(adventureId)
   }
@@ -20,7 +28,7 @@ export class AdventureService {
     return this.adventureRepository
       .create({
         ...newAdventureData,
-        user: [user],
+        users: [user],
       })
       .save()
   }

@@ -33,7 +33,7 @@ export class User extends BaseEntity {
   })
   avatar_url: string
 
-  @ManyToMany(() => Adventure, (adventure: Adventure) => adventure.user, {
+  @ManyToMany(() => Adventure, (adventure: Adventure) => adventure.users, {
     cascade: true,
   })
   @JoinTable({

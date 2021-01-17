@@ -3,6 +3,7 @@ import { UpdateUserDto } from './dto/updateUser.dto'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
 import { User } from './user.model'
+import { Adventure } from '../adventure/adventure.model'
 
 const cloudinary = require('cloudinary')
 
@@ -38,5 +39,13 @@ export class UserService {
 
   getUserByEmail(email: string) {
     return this.userRepo.findOne({ email })
+  }
+
+  getAllAdventureUsers(adventureId: string) {
+    return this.userRepo
+      .createQueryBuilder()
+      .relation(Adventure, 'users')
+      .of(adventureId)
+      .loadMany()
   }
 }

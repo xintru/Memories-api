@@ -26,7 +26,7 @@ export class Adventure extends BaseEntity {
 
   @Field(() => [User])
   @ManyToMany(() => User, (user: User) => user.adventures, { eager: false })
-  user: User[]
+  users: User[]
 
   @Field()
   @CreateDateColumn({

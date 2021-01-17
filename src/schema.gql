@@ -7,7 +7,7 @@ type Adventure {
   description: String!
   id: String!
   name: String!
-  user: [User!]!
+  users: [User!]!
 }
 
 type AuthReturnData {
