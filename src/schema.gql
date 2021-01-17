@@ -2,16 +2,16 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type AuthReturnData {
-  tokenData: TokenData!
-  user: User!
+type Adventure {
+  created: DateTime!
+  description: String!
+  id: String!
+  name: String!
+  users: [User!]!
 }
 
-type Comment {
-  created: DateTime!
-  id: String!
-  memory: Memory!
-  message: String!
+type AuthReturnData {
+  tokenData: TokenData!
   user: User!
 }
 
@@ -21,7 +21,6 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 scalar DateTime
 
 type Memory {
-  comments: [Comment!]!
   created: DateTime!
   description: String!
   id: String!
@@ -30,9 +29,8 @@ type Memory {
 }
 
 type Mutation {
-  addComment(memoryId: String!, message: String!): Comment!
   changePassword(password: String!, token: String!): User!
-  createMemory(description: String!, name: String!): Memory!
+  createAdventure(description: String!, name: String!): Adventure!
   forgotPassword(email: String!): Boolean!
   login(email: String!, password: String!): AuthReturnData!
   signup(confirmPassword: String!, email: String!, password: String!): AuthReturnData!
@@ -40,13 +38,8 @@ type Mutation {
 }
 
 type Query {
-  allMemories(limit: Int, page: Int): [Memory!]!
-  getMemoryById(id: String!): Memory!
+  getAdventureById(id: String!): Adventure!
   me: User!
-}
-
-type Subscription {
-  commentAdded: Comment!
 }
 
 type TokenData {
@@ -55,10 +48,9 @@ type TokenData {
 }
 
 type User {
+  adventures: [Adventure!]!
   avatar_url: String!
-  comments: [Comment!]!
   email: String!
   id: String!
-  memories: [Memory!]!
   name: String!
 }
