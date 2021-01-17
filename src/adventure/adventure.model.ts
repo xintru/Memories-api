@@ -4,16 +4,14 @@ import {
   CreateDateColumn,
   Entity,
   ManyToMany,
-  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm'
 import { Field, ObjectType } from '@nestjs/graphql'
 import { User } from '../user/user.model'
-import { Comment } from '../comment/comment.model'
 
 @ObjectType()
-@Entity('Memory')
-export class Memory extends BaseEntity {
+@Entity('Adventure')
+export class Adventure extends BaseEntity {
   @Field()
   @PrimaryGeneratedColumn('uuid')
   id: string
@@ -27,14 +25,8 @@ export class Memory extends BaseEntity {
   description: string
 
   @Field(() => [User])
-  @ManyToMany(() => User, (user: User) => user.memories, { eager: false })
+  @ManyToMany(() => User, (user: User) => user.adventures, { eager: false })
   user: User[]
-
-  @Field(() => [Comment])
-  @OneToMany(() => Comment, (comment: Comment) => comment.memory, {
-    eager: false,
-  })
-  comments: Comment[]
 
   @Field()
   @CreateDateColumn({

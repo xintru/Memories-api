@@ -17,8 +17,7 @@ export class UserService {
       email,
       password,
       name,
-      memories: [],
-      comments: [],
+      adventures: [],
     })
   }
 
@@ -38,16 +37,6 @@ export class UserService {
   }
 
   getUserByEmail(email: string) {
-    return this.userRepo.findOne(
-      { email },
-      {
-        relations: [
-          'memories',
-          'comments',
-          'memories.comments',
-          'comments.memory',
-        ],
-      },
-    )
+    return this.userRepo.findOne({ email })
   }
 }
